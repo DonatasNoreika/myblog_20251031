@@ -9,6 +9,9 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{% url 'posts' %}">PRADŽIA</a></li>
             </ul>
+            <form action="{% url 'search' %}" method="get" class="d-flex">
+                <input name="query" class="form-control me-2" type="text" placeholder="Paieška">
+            </form>
         </div>
     </div>
 </nav>
