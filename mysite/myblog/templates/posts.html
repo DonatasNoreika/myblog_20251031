@@ -13,7 +13,8 @@
         <div class="small text-muted">{{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}</div>
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-text">{{ post.content }}</p>
-        <a class="btn btn-primary" href="{% url 'post' post.pk %}">Read more →</a>
+        <p class="card-text"><b>Komentarų: {{ post.comments_count }}</b></p>
+        <a class="btn btn-primary" href="{% url 'post' post.pk %}">Skaityti daugiau →</a>
     </div>
 </div>
 

@@ -9,6 +9,10 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
+    def comments_count(self):
+        return self.comments.count()
+
+
 class Comment(models.Model):
     post = models.ForeignKey(to="Post", on_delete=models.CASCADE, related_name="comments")
     content = models.TextField()
