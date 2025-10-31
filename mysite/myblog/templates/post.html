@@ -5,8 +5,9 @@
 {% block content %}
 
 <div class="card mb-4">
-    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"
-                      alt="..."/></a>
+    {% if post.image %}
+        <img class="card-img-top" src="{{ post.image.url }}" alt="..."/>
+    {% endif %}
     <div class="card-body">
         <div class="small text-muted">{{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}</div>
         <h2 class="card-title">{{ post.title }}</h2>

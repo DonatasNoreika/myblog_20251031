@@ -7,6 +7,7 @@ class Post(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="post_images", null=True, blank=True)
 
 
     def comments_count(self):
