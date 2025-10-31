@@ -8,3 +8,10 @@ class PostListView(generic.ListView):
     context_object_name = "posts"
     ordering = ['-pk']
 
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = "post.html"
+    context_object_name = "post"
+
+
