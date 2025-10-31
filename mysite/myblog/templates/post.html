@@ -11,7 +11,13 @@
         <div class="small text-muted">{{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}</div>
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-text">{{ post.content }}</p>
-        <a class="btn btn-primary" href="#!">Read more →</a>
+        <hr>
+        {% for comment in post.comments.all %}
+        <div class="mb-2">
+            <div class="small text-muted">{{ comment.author }}, {{ comment.date | date:"Y-m-d H:i:s" }}</div>
+            <p class="card-text">{{ comment.content }}</p>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
