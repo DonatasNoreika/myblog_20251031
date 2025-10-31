@@ -7,6 +7,7 @@ class PostListView(generic.ListView):
     template_name = "posts.html"
     context_object_name = "posts"
     ordering = ['-pk']
+    paginate_by = 3
 
 
 class PostDetailView(generic.DetailView):
