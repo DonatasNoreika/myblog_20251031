@@ -7,7 +7,10 @@ from django.contrib import messages
 from .models import Post, Comment
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CommentForm, CustomUserChangeForm, ProfileUpdateForm
+from .forms import (CommentForm,
+                    CustomUserChangeForm,
+                    ProfileUpdateForm,
+                    CustomUserCreateForm)
 from django.contrib.auth.decorators import login_required
 
 class PostListView(generic.ListView):
@@ -71,7 +74,12 @@ class UserCommentListView(LoginRequiredMixin, generic.ListView):
         return Comment.objects.filter(author=self.request.user)
 
 def register(request):
-    form = UserCreationForm(request.POST or None)
+    form = CustomUserCreateForm(request.POST or None)
+    if request.method == "POST":
+        new_email = request.POST['email']
+        if User.objects.filter(email=new_email).exists():
+            messages.error(request, f'Vartotojas su el. paštu {form.instance.email} jau užregistruotas!')
+            return redirect("register")
     if form.is_valid():
         form.save()
         return redirect("login")
