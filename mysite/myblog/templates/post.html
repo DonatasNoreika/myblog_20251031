@@ -9,7 +9,12 @@
         <img class="card-img-top" src="{{ post.image.url }}" alt="..."/>
     {% endif %}
     <div class="card-body">
-        <div class="small text-muted">{{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}</div>
+        <div class="small text-muted">
+            {% if post.author.profile.photo %}
+            <img src="{{ post.author.profile.photo.url }}" class="rounded-circle" style="width: 30px">
+            {% endif %}
+            {{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}
+        </div>
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-text">{{ post.content | safe }}</p>
         <hr>
@@ -24,7 +29,12 @@
         {% endif %}
         {% for comment in post.comments.all %}
         <div class="mb-4">
-            <div class="small text-muted">{{ comment.author }}, {{ comment.date | date:"Y-m-d H:i:s" }}</div>
+            <div class="small text-muted">
+                {% if comment.author.profile.photo %}
+                    <img src="{{ comment.author.profile.photo.url }}" class="rounded-circle" style="width: 30px">
+                {% endif %}
+                {{ comment.author }}, {{ comment.date | date:"Y-m-d H:i:s" }}
+            </div>
             <p class="card-text">{{ comment.content | safe }}</p>
         </div>
         {% endfor %}
