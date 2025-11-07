@@ -5,7 +5,7 @@ from django.views.generic.edit import FormMixin
 from .models import Post, Comment
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CommentForm, CustomUserChangeForm
+from .forms import CommentForm, CustomUserChangeForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 
 class PostListView(generic.ListView):
@@ -78,7 +78,9 @@ def register(request):
 @login_required
 def profile(request):
     u_form = CustomUserChangeForm(request.POST or None, instance=request.user)
-    if u_form.is_valid():
+    p_form = ProfileUpdateForm(request.POST or None, request.FILES or None, instance=request.user.profile)
+    if u_form.is_valid() and p_form.is_valid():
         u_form.save()
+        p_form.save()
         return redirect("profile")
-    return render(request, template_name="profile.html", context={"form": u_form})
+    return render(request, template_name="profile.html", context={"u_form": u_form, "p_form": p_form})

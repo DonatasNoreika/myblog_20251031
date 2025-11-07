@@ -3,16 +3,20 @@
 {% block title %}Vartotojo profilis{% endblock %}
 
 {% block content %}
+{% if user.profile.photo %}
+<img src="{{ user.profile.photo.url }}" class="rounded-circle" style="width: 300px">
+{% endif %}
 <div class="content-section">
       <h2 class="account-heading">{{ user.username }}</h2>
       <p class="text-secondary">El. paštas: {{ user.email }}</p>
       <p class="text-secondary">Vardas: {{ user.first_name }}</p>
       <p class="text-secondary">Pavardė: {{ user.last_name }}</p>
 </div>
-<form method="post" class="mb-4">
+<form method="post" class="mb-4" enctype="multipart/form-data">
     {% csrf_token %}
     {% load crispy_forms_tags %}
-    {{ form | crispy }}
+    {{ u_form | crispy }}
+    {{ p_form | crispy }}
     <button type="submit" class="btn btn-secondary">Atnaujinti</button>
 </form>
 {% endblock %}

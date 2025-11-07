@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Post, Comment, Profile
 
 class CommentInLine(admin.TabularInline):
     model = Comment
@@ -10,3 +10,4 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [CommentInLine]
 
 admin.site.register(Post, PostAdmin)
+admin.site.register(Profile)
