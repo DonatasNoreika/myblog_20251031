@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Vartotojo profilis{% endblock %}
+
+{% block content %}
+<div class="content-section">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">El. paštas: {{ user.email }}</p>
+      <p class="text-secondary">Vardas: {{ user.first_name }}</p>
+      <p class="text-secondary">Pavardė: {{ user.last_name }}</p>
+</div>
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    {{ form | crispy }}
+    <button type="submit" class="btn btn-secondary">Atnaujinti</button>
+</form>
+{% endblock %}
