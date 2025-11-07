@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Mano komentarai{% endblock %}
+
+{% block content %}
+<h1>Mano komentarai:</h1>
+{% for comment in comments %}
+<div class="mb-2">
+    <div class="small text-muted">{{ comment.author }}, {{ comment.date | date:"Y-m-d H:i:s" }}</div>
+    <p class="card-text">{{ comment.content | safe }}</p>
+    <p>Įrašas: <a href="{% url 'post' comment.post.pk %}">{{ comment.post.title }}</a></p>
+</div>
+<hr>
+{% endfor %}
+{% endblock %}
