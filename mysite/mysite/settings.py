@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from .my_settings import SECRET_KEY, DEBUG, ALLOWED_HOSTS
+from .my_settings import (SECRET_KEY,
+                          DEBUG,
+                          ALLOWED_HOSTS,
+                          EMAIL_HOST_USER,
+                          EMAIL_HOST_PASSWORD)
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,6 +33,13 @@ DEBUG = DEBUG
 
 ALLOWED_HOSTS = ALLOWED_HOSTS
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_POST = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = EMAIL_HOST_USER
+# el. pašto adresas iš kurio siųsite
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 
 # Application definition
 
