@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, reverse
 from django.views import generic
 from django.views.generic.edit import FormMixin
+from django.contrib import messages
 from .models import Post, Comment
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
@@ -69,7 +71,7 @@ class UserCommentListView(LoginRequiredMixin, generic.ListView):
         return Comment.objects.filter(author=self.request.user)
 
 def register(request):
-    form = UserCreationForm(request.POST)
+    form = UserCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
         return redirect("login")
@@ -79,8 +81,14 @@ def register(request):
 def profile(request):
     u_form = CustomUserChangeForm(request.POST or None, instance=request.user)
     p_form = ProfileUpdateForm(request.POST or None, request.FILES or None, instance=request.user.profile)
+    if request.method == "POST":
+        new_email = request.POST['email']
+        if new_email and request.user.email != new_email and User.objects.filter(email=new_email).exists():
+            messages.error(request, f'Vartotojas su el. paštu {u_form.instance.email} jau užregistruotas!')
+            return redirect("profile")
     if u_form.is_valid() and p_form.is_valid():
         u_form.save()
         p_form.save()
+        messages.info(request, f'Vartotoją paredagavome!')
         return redirect("profile")
     return render(request, template_name="profile.html", context={"u_form": u_form, "p_form": p_form})
