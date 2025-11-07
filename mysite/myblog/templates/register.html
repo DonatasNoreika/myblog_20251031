@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Registracija{% endblock %}
+
+{% block content %}
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    {{ form | crispy }}
+    <button type="submit" class="btn btn-secondary">Registruotis</button>
+</form>
+{% endblock %}

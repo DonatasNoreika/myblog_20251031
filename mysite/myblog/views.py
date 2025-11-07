@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from .models import Post, Comment
 from django.db.models import Q
+from django.contrib.auth.forms import UserCreationForm
 
 class PostListView(generic.ListView):
     model = Post
@@ -45,3 +46,10 @@ class UserCommentListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Comment.objects.filter(author=self.request.user)
+
+def register(request):
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect("login")
+    return render(request, template_name="register.html", context={"form": form})
