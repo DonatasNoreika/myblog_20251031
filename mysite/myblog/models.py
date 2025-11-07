@@ -13,6 +13,9 @@ class Post(models.Model):
     def comments_count(self):
         return self.comments.count()
 
+    def __str__(self):
+        return f"{self.title} ({self.date})"
+
 
 class Comment(models.Model):
     post = models.ForeignKey(to="Post", on_delete=models.CASCADE, related_name="comments")

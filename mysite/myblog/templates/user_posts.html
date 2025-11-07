@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Paieškos rezultatai{% endblock %}
+
+{% block content %}
+<h1>Mano įrašai:</h1>
+{% for post in posts %}
+<p><a href="{% url 'post' post.pk %}">{{ post }}</a></p>
+{% endfor %}
+{% endblock %}
