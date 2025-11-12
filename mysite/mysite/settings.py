@@ -15,7 +15,9 @@ from .my_settings import (SECRET_KEY,
                           DEBUG,
                           ALLOWED_HOSTS,
                           EMAIL_HOST_USER,
-                          EMAIL_HOST_PASSWORD)
+                          EMAIL_HOST_PASSWORD,
+                          STATICFILES_DIRS,
+                          STATIC_ROOT)
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -174,3 +176,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
     }
+
+STATICFILES_DIRS = STATICFILES_DIRS
+STATIC_ROOT = STATIC_ROOT
