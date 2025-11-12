@@ -4,6 +4,12 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+<div>
+    <a class="btn btn-secondary mb-5" href="{% url 'posts_new' %}">Naujas įrašas</a>
+</div>
+{% endif %}
+
 {% for post in posts %}
 
 <div class="card mb-4">

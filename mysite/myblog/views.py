@@ -12,6 +12,7 @@ from .forms import (CommentForm,
                     ProfileUpdateForm,
                     CustomUserCreateForm)
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
 class PostListView(generic.ListView):
     model = Post
@@ -100,3 +101,16 @@ def profile(request):
         messages.info(request, f'Vartotoją paredagavome!')
         return redirect("profile")
     return render(request, template_name="profile.html", context={"u_form": u_form, "p_form": p_form})
+
+
+class PostCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Post
+    template_name = "post_form.html"
+    fields = ['title', 'content', 'image']
+    success_url = reverse_lazy('posts')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        return super().form_valid(form)
+
