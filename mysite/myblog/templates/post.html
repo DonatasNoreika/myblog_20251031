@@ -45,7 +45,7 @@
             {% if comment.author == user %}
             <div>
                 <a class="btn btn-warning" href="{% url 'comments_edit' comment.pk %}">Redaguoti</a>
-                <a class="btn btn-danger" href="">Ištrinti</a>
+                <a class="btn btn-danger" href="{% url 'comments_delete' comment.pk %}">Ištrinti</a>
             </div>
             {% endif %}
             <hr>
