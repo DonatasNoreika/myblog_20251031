@@ -125,3 +125,13 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView
 
     def test_func(self):
         return self.get_object().author == self.request.user
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Post
+    template_name = "post_delete.html"
+    context_object_name = "post"
+    success_url = reverse_lazy("posts")
+
+    def test_func(self):
+        return self.get_object().author == self.request.user

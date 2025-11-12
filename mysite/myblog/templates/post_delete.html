@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Įrašo trynimas{% endblock %}
+
+{% block content %}
+<h3>Įrašo trynimas</h3>
+<p>Ar tikrai norite ištrinti įrašą "{{ post.title }}"?</p>
+<form method="post" class="mb-4">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    <button type="submit" class="btn btn-secondary">Patvirtinti</button>
+    <a class="btn btn-danger" href="{% url 'post' post.pk %}">Atšaukti</a>
+</form>
+{% endblock %}
