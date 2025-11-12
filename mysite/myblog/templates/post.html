@@ -42,6 +42,13 @@
                 {{ comment.author }}, {{ comment.date | date:"Y-m-d H:i:s" }}
             </div>
             <p class="card-text">{{ comment.content | safe }}</p>
+            {% if comment.author == user %}
+            <div>
+                <a class="btn btn-warning" href="{% url 'comments_edit' comment.pk %}">Redaguoti</a>
+                <a class="btn btn-danger" href="">Ištrinti</a>
+            </div>
+            {% endif %}
+            <hr>
         </div>
         {% endfor %}
     </div>
