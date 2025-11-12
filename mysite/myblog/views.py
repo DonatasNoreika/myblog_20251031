@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, reverse
 from django.views import generic
@@ -114,3 +114,14 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
         form.save()
         return super().form_valid(form)
 
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = Post
+    template_name = "post_form.html"
+    fields = ['title', 'content', 'image']
+
+    def get_success_url(self):
+        return reverse("post", kwargs={"pk": self.object.pk})
+
+    def test_func(self):
+        return self.get_object().author == self.request.user

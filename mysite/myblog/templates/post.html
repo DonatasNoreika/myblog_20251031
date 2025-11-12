@@ -17,7 +17,12 @@
         </div>
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-text">{{ post.content | safe }}</p>
+        {% if post.author == user %}
+        <div>
+            <a class="btn btn-warning" href="{% url 'posts_edit' post.pk %}">Redaguoti</a>
+        </div>
         <hr>
+        {% endif %}
         {% if user.is_authenticated %}
         <h2>Palikite atsiliepimą</h2>
         <form method="post" class="mb-2">
